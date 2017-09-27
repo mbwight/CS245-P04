@@ -26,12 +26,21 @@ public class Practice4Test {
 	
 	public boolean isPalindrome(String item) {
 		clearData();
+		//made character of string being added to stack/queue. checked if that character was a letter because thats what we are checking for palindrome
+		//also made sure to add them in lower case so it works out
 		for (int i = 0; i < item.length(); i++) {
-			stack.push(item.substring(i, i+1));
-			queue.enqueue(item.substring(i, i+1));
+			String character = item.substring(i, i+1);
+			char c = character.charAt(0);
+			if(Character.isLetter(c)){
+				stack.push(character.toLowerCase());
+				queue.enqueue(character.toLowerCase());
+			}
+			
 		}
 
 		while (! stack.empty() && ! queue.empty()) {
+			//used temporary peep method to debug program
+			//System.out.println(stack.peek()+ "" + queue.peep());
 			if (! stack.pop().equals(queue.dequeue())) {
 				return false;
 			}
@@ -57,10 +66,13 @@ public class Practice4Test {
 			System.out.println("[+" + grade + "%] Queue and Stack declared correctly.");
 	
 			// First tests: is the queue correct? Is the stack correct?
+			
 			String first = "first";
 			String second = "second";
 			queue.enqueue(first);
+			
 			queue.enqueue(second);
+			
 			if (queue.dequeue() == first && queue.dequeue() == second && queue.empty()) {
 				System.out.println("[+10%] Queue functions appear correct.");
 				grade += 10;
@@ -70,6 +82,7 @@ public class Practice4Test {
 			
 			stack.push(first);
 			stack.push(second);
+			
 			if (stack.pop() == second && stack.pop() == first && stack.empty()) {
 				System.out.println("[+10%] Stack functions appear correct.");
 				grade += 10;
@@ -123,8 +136,8 @@ public class Practice4Test {
 					grade += 10;
 				}
 			}
-		} catch (Exception e) {
-			// Do nothing
+		 //catch (Exception e) {
+			//System.out.println("caught an exception");
 		} finally {
 			System.out.println("====================");
 			System.out.println("Grade for this assignment: " + grade + "%");
